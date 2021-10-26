@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "074d4553-a36b-4cf1-a8a3-e4aab6095a02",
+		"name": "productsapp-automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44303/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44303",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"response to have an Id\", function () {pm.response.to.have.jsonBody(\"Id\")});\r",
+							"pm.test(\"response to have a Name\", function () {pm.response.to.have.jsonBody(\"Name\")});\r",
+							"pm.test(\"response to have a Category\", function () {pm.response.to.have.jsonBody(\"Category\")});\r",
+							"pm.test(\"response to have an Price\", function () {pm.response.to.have.jsonBody(\"Price\")});\r",
+							"pm.test(\"value of [0].Id to be 1\", function(){pm.expect(1).to.equal(jsonData.Id)});\r",
+							"pm.test(\"value of [0].Name to be Tomato Soup\", function(){pm.expect(\"Tomato Soup\").to.equal(jsonData.Name)});\r",
+							"pm.test(\"value of [0].Category to be Groceries\", function(){pm.expect(\"Groceries\").to.equal(jsonData.Category)});\r",
+							"pm.test(\"value of [0].Price to be 1.0\", function(){pm.expect(1.0).to.equal(jsonData.Price)});\r",
+							"pm.test(\"response to be 200 OK\", function(){pm.response.to.have.status(200);});\r",
+							"pm.test(\"response time less than 1000MS\", function(){pm.expect(pm.response.responseTime).to.be.below(1000);});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44303/api/products/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44303",
+					"path": [
+						"api",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
